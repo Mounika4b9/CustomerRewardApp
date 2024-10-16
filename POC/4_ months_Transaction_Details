@@ -1,0 +1,52 @@
+{
+    "customer": {
+        "id": 9,
+        "name": "satyam",
+        "phoneNo": 9059191714
+    },
+    "transaction": [
+        {
+            "transactionId": 1,
+            "transactionDate": "2024-10-12",
+            "amount": 180,
+            "rewardPoints": 210
+        },
+        {
+            "transactionId": 2,
+            "transactionDate": "2024-10-15",
+            "amount": 150,
+            "rewardPoints": 150
+        },
+        {
+            "transactionId": 3,
+            "transactionDate": "2024-08-02",
+            "amount": 180,
+            "rewardPoints": 210
+        },
+        {
+            "transactionId": 4,
+            "transactionDate": "2024-09-08",
+            "amount": 280,
+            "rewardPoints": 410
+        },
+        {
+            "transactionId": 5,
+            "transactionDate": "2024-10-08",
+            "amount": 250,
+            "rewardPoints": 350
+        },
+        {
+            "transactionId": 6,
+            "transactionDate": "2024-07-08",
+            "amount": 210,
+            "rewardPoints": 270
+        },
+        {
+            "transactionId": 7,
+            "transactionDate": "2024-09-08",
+            "amount": 210,
+            "rewardPoints": 270
+        }
+    ],
+    "totalRewardPoints": 1870
+}
