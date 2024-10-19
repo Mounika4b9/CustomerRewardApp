@@ -1,6 +1,4 @@
 package com.retailer.customerRewardApp.entity;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

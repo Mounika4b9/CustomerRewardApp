@@ -16,15 +16,15 @@ public class CustomerServiceImpl implements CustomerService {
 	private ModelMapper modelMapper;
 
 	@Override
-	/*saving 
-	 * CustomerDetails in DB*/
-	
+	/*
+	 * saving CustomerDetails in DB
+	 */
+
 	public CustomerDto saveCustomer(CustomerDto customerDto) {
-		Customer customer=modelMapper.map(customerDto, Customer.class);
-		Customer savedCustomer=customerRepository.save(customer);
-		CustomerDto dto=modelMapper.map(savedCustomer, CustomerDto.class);
+		Customer customer = modelMapper.map(customerDto, Customer.class);
+		Customer savedCustomer = customerRepository.save(customer);
+		CustomerDto dto = modelMapper.map(savedCustomer, CustomerDto.class);
 		return dto;
 	}
-
 
 }

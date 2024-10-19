@@ -18,43 +18,40 @@ import org.springframework.web.bind.annotation.RestController;
 import com.retailer.customerRewardApp.dto.RewardResponse;
 import com.retailer.customerRewardApp.service.RewardService;
 
-
 @RestController
 @RequestMapping("/rewards")
 public class RewardController {
 	@Autowired
 	private RewardService service;
-	private static final Logger logger=LoggerFactory.getLogger(RewardController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RewardController.class);
+
 	@GetMapping("/{customerId}")
-	public ResponseEntity<Map<String,Integer>> getRewards(@PathVariable Long customerId,
-			@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)LocalDate startDate,
-			@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)LocalDate endDate){
-		logger.info("Recieved request to get customer details for customer ID:{}",customerId);
-		Map<String,Integer>  rewards=service.getMontlyRewardPoints(customerId, startDate, endDate);
+	public ResponseEntity<Map<String, Integer>> getRewards(@PathVariable Long customerId,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+		logger.info("Recieved request to get customer details for customer ID:{}", customerId);
+		Map<String, Integer> rewards = service.getMontlyRewardPoints(customerId, startDate, endDate);
 		return ResponseEntity.ok(rewards);
 	}
-	
+
 	@GetMapping("/{customerId}/rewardDetails")
-	public ResponseEntity<RewardResponse> getTotalRewardsAndTransactionDetailsByCustId(@PathVariable Long customerId, @RequestParam(value="months",defaultValue="3")int months){
-		logger.info("Recieved the request for getting  total reward points:{}",customerId);
-		
-		return new ResponseEntity<>(service.getTotalRewardsAndTransactionDetailsByCustId(customerId,months),HttpStatus.OK);
-		
+	public ResponseEntity<RewardResponse> getTotalRewardsAndTransactionDetailsByCustId(@PathVariable Long customerId,
+			@RequestParam(value = "months", defaultValue = "3") int months) {
+		logger.info("Recieved the request for getting  total reward points:{}", customerId);
+
+		return new ResponseEntity<>(service.getTotalRewardsAndTransactionDetailsByCustId(customerId, months),
+				HttpStatus.OK);
+
 	}
+
 	@GetMapping("/monthlyPoints/{customerId}")
 	public ResponseEntity<Map<String, Object>> getMontlyTransactionAndDetails(@PathVariable Long customerId,
-			@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)LocalDate startDate,
-			@RequestParam @DateTimeFormat(iso=DateTimeFormat.ISO.DATE)LocalDate endDate){
-		logger.info("Recieved request to get monthly transaction details for customerId:{}",customerId);
-		return new ResponseEntity<>(service.getMontlyTransactionAndDetails(customerId, startDate, endDate),HttpStatus.OK);
-		
-		
-		
-	}
-		
-		
-	}
-			
-	
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
+		logger.info("Recieved request to get monthly transaction details for customerId:{}", customerId);
+		return new ResponseEntity<>(service.getMontlyTransactionAndDetails(customerId, startDate, endDate),
+				HttpStatus.OK);
 
+	}
 
+}

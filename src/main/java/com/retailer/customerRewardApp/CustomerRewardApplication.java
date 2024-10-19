@@ -12,8 +12,8 @@ public class CustomerRewardApplication {
 		SpringApplication.run(CustomerRewardApplication.class, args);
 	}
 
-    @Bean
-  public ModelMapper modelMapperBean() {
+	@Bean
+	public ModelMapper modelMapperBean() {
 		return new ModelMapper();
 	}
 

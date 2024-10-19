@@ -1,4 +1,5 @@
 package com.retailer.customerRewardApp.service;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +16,7 @@ import com.retailer.customerRewardApp.entity.Customer;
 import com.retailer.customerRewardApp.entity.Transaction;
 import com.retailer.customerRewardApp.repository.CustomerRepository;
 import com.retailer.customerRewardApp.repository.TransactionRepository;
+
 @Service
 public class TransactionServiceImpl implements TransactionService {
 	@Autowired
@@ -23,58 +25,55 @@ public class TransactionServiceImpl implements TransactionService {
 	private ModelMapper modelMapper;
 	@Autowired
 	private CustomerRepository customerRepository;
-	
-	private static final Logger logger=LoggerFactory.getLogger(TransactionServiceImpl.class);
-	
-	//Creating transaction data in DB
+
+	private static final Logger logger = LoggerFactory.getLogger(TransactionServiceImpl.class);
+
+	// Creating transaction data in DB
 
 	@Override
-	public TransactionDto saveTransaction(long customerId,TransactionDto transactionDto) {
-		Customer customer=customerRepository.findById(customerId).orElseThrow(
-				()->new CustomerNotFound(String.format("customer ID %d not found", customerId)));
-		Transaction transaction=modelMapper.map(transactionDto, Transaction.class);
+	public TransactionDto saveTransaction(long customerId, TransactionDto transactionDto) {
+		Customer customer = customerRepository.findById(customerId)
+				.orElseThrow(() -> new CustomerNotFound(String.format("customer ID %d not found", customerId)));
+		Transaction transaction = modelMapper.map(transactionDto, Transaction.class);
 		transaction.setCustomer(customer);
-		int points=calculatePoints(transaction.getAmount());
+		int points = calculatePoints(transaction.getAmount());
 		transaction.setRewardPoints(points);
-		Transaction savedTransaction=transactionReposiotory.save(transaction);
-		TransactionDto dto=modelMapper.map(savedTransaction, TransactionDto.class);
+		Transaction savedTransaction = transactionReposiotory.save(transaction);
+		TransactionDto dto = modelMapper.map(savedTransaction, TransactionDto.class);
 		return dto;
 	}
-	
-	/*Get All Transaction details
-	  By CustomerID*/
+
+	/*
+	 * Get All Transaction details By CustomerID
+	 */
 	@Override
 	public List<TransactionDto> getAllTransactions(long customerId) {
-		customerRepository.findById(customerId).orElseThrow(
-				()-> new CustomerNotFound(String.format("Customer ID %d not found", customerId)));
-		List<Transaction> txns= transactionReposiotory.findAllByCustomerId(customerId);
-		
-		return txns.stream().map(
-				txn -> modelMapper.map(txn, TransactionDto.class)).collect(Collectors.toList());
+		customerRepository.findById(customerId)
+				.orElseThrow(() -> new CustomerNotFound(String.format("Customer ID %d not found", customerId)));
+		List<Transaction> txns = transactionReposiotory.findAllByCustomerId(customerId);
+
+		return txns.stream().map(txn -> modelMapper.map(txn, TransactionDto.class)).collect(Collectors.toList());
 	}
 
-	/*calculate the reward points 
-	based on purchase amount
-	of each transaction*/
-	
+	/*
+	 * calculate the reward points based on purchase amount of each transaction
+	 */
+
 	@Override
 	public int calculatePoints(Double amount) {
-		if(amount==null||amount<0) {
+		if (amount == null || amount < 0) {
 			logger.error("invalid transaction amount:{}", amount);
 			throw new InvalidInputException("Transaction amount must be a positive number");
 		}
-		int points=0;
-		if(amount>100) {
-			points+=(amount-100)*2;
-			amount=100.0;
+		int points = 0;
+		if (amount > 100) {
+			points += (amount - 100) * 2;
+			amount = 100.0;
 		}
-		if(amount>50) {
-			points+=(amount-50);
+		if (amount > 50) {
+			points += (amount - 50);
 		}
-		logger.debug("calculated points:{}",points);
+		logger.debug("calculated points:{}", points);
 		return points;
 	}
-	}
-	
-
-
+}

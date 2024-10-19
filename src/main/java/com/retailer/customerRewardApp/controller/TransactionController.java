@@ -13,24 +13,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.retailer.customerRewardApp.dto.TransactionDto;
 import com.retailer.customerRewardApp.service.TransactionService;
+
 @RestController
 @RequestMapping("/api")
 public class TransactionController {
-		@Autowired
-		private TransactionService transactionService;
-		@PostMapping("/{customerid}/transaction")
-		public ResponseEntity<String> saveTransaction(
-			@PathVariable(name = "customerid") long customerid,
-			@RequestBody TransactionDto transactionDto){
-			
-			transactionService.saveTransaction(customerid,transactionDto);
-			return  ResponseEntity.ok("Transaction Details are saved successfully");
-			
-		}
-		@GetMapping("/{customerId}/txns")
-		public ResponseEntity<List<TransactionDto>> getAllTransactions(
-				@PathVariable(name="customerId") long customerId){
-			return new ResponseEntity<>(transactionService.getAllTransactions(customerId),HttpStatus.OK);
-		}
+	@Autowired
+	private TransactionService transactionService;
+
+	@PostMapping("/{customerid}/transaction")
+	public ResponseEntity<String> saveTransaction(@PathVariable(name = "customerid") long customerid,
+			@RequestBody TransactionDto transactionDto) {
+
+		transactionService.saveTransaction(customerid, transactionDto);
+		return ResponseEntity.ok("Transaction Details are saved successfully");
+
+	}
+
+	@GetMapping("/{customerId}/txns")
+	public ResponseEntity<List<TransactionDto>> getAllTransactions(@PathVariable(name = "customerId") long customerId) {
+		return new ResponseEntity<>(transactionService.getAllTransactions(customerId), HttpStatus.OK);
+	}
 
 }

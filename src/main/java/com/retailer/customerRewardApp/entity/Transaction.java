@@ -24,16 +24,14 @@ public class Transaction {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate date;
 	@Column(nullable = false)
 	private double amount;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name= "cust_id")
+	@JoinColumn(name = "cust_id")
 	private Customer customer;
 	@Column(nullable = false)
 	private int rewardPoints;
-	
-	
 
 }

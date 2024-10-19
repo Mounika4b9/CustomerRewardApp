@@ -8,16 +8,11 @@ import org.springframework.stereotype.Repository;
 
 import com.retailer.customerRewardApp.entity.Transaction;
 
-
 @Repository
-public interface TransactionRepository extends  JpaRepository<Transaction,Long>{
-	
-	List<Transaction> findByCustomerIdAndDateBetween(Long customerId,LocalDate startDate,LocalDate endDate);
+public interface TransactionRepository extends JpaRepository<Transaction, Long> {
+
+	List<Transaction> findByCustomerIdAndDateBetween(Long customerId, LocalDate startDate, LocalDate endDate);
 
 	List<Transaction> findAllByCustomerId(long customerId);
-
-
-	
-	
 
 }

@@ -1,4 +1,5 @@
 package com.retailer.customerRewardApp.dto;
+
 import lombok.Getter;
 import lombok.Setter;
 
