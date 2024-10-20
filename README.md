@@ -8,191 +8,130 @@ Condition : A Customer recieves 2 points for every doller spent over $100 in eac
 - Maven 4.0.0
 -	SpringBoot 3.3.4
 -	MYSQL8
+## Flow Diagram
+### Create Reward Points:
+![](https://github.com/Mounika4b9/CustomerRewardApp/blob/master/Flow%20Diagrams/Create_Reward_Points.PNG)
+### Get Reward Points:
+![](https://github.com/Mounika4b9/CustomerRewardApp/blob/master/Flow%20Diagrams/Get_Reward_points.PNG)
+
 ## APIEndPoints
 ### Create Customer
 -	URI:" http://localhost:8081/api/customer/save"
 -	method: POST
 -	Function: create customer
 -	ReqBody:
-  
+  ```json
       { 
-  
-
-      "name": "mounika",
-
-      "email": "mounika5@gmail.com",
-
-      "phoneNo":8688131024"
-
+        "name": "mounika",
+        "email": "mounika5@gmail.com",
+        "phoneNo": "8688131024"
       }
--	Response: Customer Details are saved Successfully
+  ```
+-	Response:
+```
+    Customer Details are saved Successfully
+```
 
 ### Create Transaction
 -	URI:" http://localhost:8081/api/9/transaction"
 -	method: POST
 -	Function:create Transaction
--	ReqBody:  
+-	ReqBody:
+```json
       {
-
-
-    "transactionDate": "2024-10-08",
-
-    "amount": 250
-
+      "transactionDate": "2024-10-08",
+      "amount": 250
       }
--	Response: Transaction Details are saved Successfully
+```
+-	Response:
+```
+ 	 Transaction Details are saved Successfully
+```
 
 ### Retrieving the default 3 months Reward details based on customerId
 -	URI:" http://localhost:8081/rewards/8/rewardDetails"
 -	method: GET
 -	Function: get default 3 months reward poins
 -	Response:
-  
+  ```json
   {
-
-
   "customer": 
-
   {
-
-    "id": 8, 
-    
+    "id": 8,   
     "name": "vishwa",
-    
     "phoneNo": "9849211276"
-
   },
-
   "transaction": [
-
   {
-
   "transactionId": 8,
-
   "transactionDate": "2024-09-08",
-
   "amount": 210,
-
   "rewardPoints": 270
-
   },
-
   {
-
   "transactionId": 9,
-
   "transactionDate": "2024-09-15",
-
   "amount": 150,
-
   "rewardPoints": 150
-
   },
-
   {
-
   "transactionId": 10,
-
   "transactionDate": "2024-08-15",
-
   "amount": 120,
-
   "rewardPoints": 90
-
   },
-
   {
-
   "transactionId": 11,
-
   "transactionDate": "2024-10-15",
-
   "amount": 120,
-
   "rewardPoints": 90
-
   }
-
   ],
-
   "totalRewardPoints": 600
-  
-  }
-  
+   }
+ ```
+ 
 ### Retrieving montly wise transactions based on customer id ,start and end Date
 -	URI: http://localhost:8081/rewards/monthlyPoints/8?startDate=2024-08-01&endDate=2024-10-10
 -	method: GET
 -	Function: get monthly wise reward points and total points
 -	Response:
-
+```json
   {
-
-
   "monthlyData":
    {
-
   "AUGUST": {
-
     "transactions": [{
-
               "transactionId": 10,
-
               "transactionDate": "2024-08-15",
-
               "amount": 120,
-
               "rewardPoints": 90
-
                   }],
-
     "points": 90
-
             },
-
    "SEPTEMBER": {
-
       "transactions":[{
-
               "transactionId": 8,
-
               "transactionDate": "2024-09-08",
-
               "amount": 210,
-
               "rewardPoints": 270
-
-             },
-
+            },
              {
-
               "transactionId": 9,
-
               "transactionDate": "2024-09-15",
-
               "amount": 150,
-
               "rewardPoints": 150
             }
-
             ],
-
         "points": 420
-
-          }   
-          
+          }           
         },  
-        
-         "customer":  
-         
+        "customer":  
            {
-
               "id": 8,
-
               "name": "vishwa",
-
               "phoneNo": "9849211276"
-
             }
-
           }
+  ```
 ### Look in POC folder for more evidences
