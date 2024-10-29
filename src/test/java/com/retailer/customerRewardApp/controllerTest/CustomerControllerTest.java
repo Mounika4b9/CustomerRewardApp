@@ -1,39 +1,41 @@
 package com.retailer.customerRewardApp.controllerTest;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.retailer.customerRewardApp.controller.CustomerController;
 import com.retailer.customerRewardApp.dto.CustomerDto;
-import com.retailer.customerRewardApp.service.CustomerServiceImpl;
+import com.retailer.customerRewardApp.service.CustomerService;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {
 
-	@Mock
-	private CustomerServiceImpl service;
+	@Autowired
+	private MockMvc mockMvc;
 
-	@InjectMocks
-	private CustomerController controller;
+	@MockBean
+	private CustomerService customerService;
 
-	private CustomerDto invalidCustomerDto;
+	@Autowired
+	private ObjectMapper objectMapper;
+
 	private CustomerDto validCustomerDto;
+	private CustomerDto invalidCustomerDto;
 
 	@BeforeEach
 	public void setUp() {
-		// MockitoAnnotations.initMocks(this); // Initialize mocks before each test
-
 		validCustomerDto = new CustomerDto();
-		validCustomerDto.setName("John Doe");
+		validCustomerDto.setName("bartosz");
 		validCustomerDto.setPhoneNo("1234567890");
 
 		invalidCustomerDto = new CustomerDto();
@@ -42,19 +44,17 @@ public class CustomerControllerTest {
 	}
 
 	@Test
-	public void testSaveCustomer_Success() {
-		when(service.saveCustomer(validCustomerDto)).thenReturn(null); // Adjust the return value accordingly
-
-		ResponseEntity<String> response = controller.saveCustomer(validCustomerDto);
-		assertEquals("Customer Details are saved Successfully", response.getBody());
+	public void testSaveCustomer_Success() throws Exception {
+		mockMvc.perform(post("/api/customer/save").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(validCustomerDto))).andExpect(status().isOk())
+				.andExpect(content().string("Customer Details are saved Successfully"));
 	}
 
 	@Test
-	public void testSaveCustomer_InvalidRequest() {
-		RuntimeException thrown = assertThrows(RuntimeException.class, () -> {
-			controller.saveCustomer(invalidCustomerDto);
-		});
-		assertEquals("Invalid Request", thrown.getMessage());
+	public void testSaveCustomer_BadRequest() throws Exception {
+		mockMvc.perform(post("/api/customer/save").contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(invalidCustomerDto))).andExpect(status().isBadRequest());
+
 	}
 
 }

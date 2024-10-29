@@ -1,65 +1,87 @@
 package com.retailer.customerRewardApp.controllerTest;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.retailer.customerRewardApp.controller.TransactionController;
 import com.retailer.customerRewardApp.dto.TransactionDto;
 import com.retailer.customerRewardApp.service.TransactionService;
 
-@ExtendWith(MockitoExtension.class)
+@WebMvcTest(TransactionController.class)
 public class TransactionControllerTest {
 
-	@Mock
+	@Autowired
+	private MockMvc mockMvc;
+
+	@MockBean
 	private TransactionService transactionService;
 
-	@InjectMocks
-	private TransactionController transactionController;
+	@Autowired
+	private ObjectMapper objectMapper;
 
-	private TransactionDto transactionDto;
-	private long customerId;
+	private TransactionDto validTransactionDto;
+	private TransactionDto invalidTransactionDto;
 
 	@BeforeEach
 	public void setUp() {
-		transactionDto = new TransactionDto();
-		// Populate transactionDto with test data
+		validTransactionDto = new TransactionDto();
+		validTransactionDto.setAmount(300);
+		validTransactionDto.setTransactionDate(LocalDate.now());
 
-		customerId = 1L;
+		invalidTransactionDto = new TransactionDto();
+		invalidTransactionDto.setAmount(0); // Invalid amount
+		invalidTransactionDto.setTransactionDate(null); // Invalid date
 	}
 
 	@Test
-	public void testSaveTransaction_Success() {
-		// Use doNothing().when for void methods
-		doAnswer(invocation -> {
-			return null;
-		}).when(transactionService).saveTransaction(customerId, transactionDto);
-
-		ResponseEntity<String> response = transactionController.saveTransaction(customerId, transactionDto);
-		assertEquals("Transaction Details are saved successfully", response.getBody());
+	public void testSaveTransaction_Success() throws Exception {
+		mockMvc.perform(post("/api/{customerid}/transaction", 1).contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(validTransactionDto))).andExpect(status().isOk())
+				.andExpect(content().string("Transaction Details are saved successfully"));
 	}
 
 	@Test
-	public void testGetAllTransactions_Success() {
+	public void testSaveTransaction_InvalidDetails() throws Exception {
+		mockMvc.perform(post("/api/{customerid}/transaction", 1).contentType(MediaType.APPLICATION_JSON)
+				.content(objectMapper.writeValueAsString(invalidTransactionDto))).andExpect(status().isBadRequest())
+				.andExpect(content().string("Invalid Transaction Details"));
+	}
+
+	@Test
+	public void testGetAllTransactions_Success() throws Exception {
 		List<TransactionDto> transactionList = new ArrayList<>();
-		// Populate transactionList with test data
+		transactionList.add(validTransactionDto); // Add a valid transaction for testing
 
-		when(transactionService.getAllTransactions(customerId)).thenReturn(transactionList);
+		when(transactionService.getAllTransactions(1L)).thenReturn(transactionList);
 
-		ResponseEntity<List<TransactionDto>> response = transactionController.getAllTransactions(customerId);
-		assertEquals(HttpStatus.OK, response.getStatusCode());
-		assertEquals(transactionList, response.getBody());
+		mockMvc.perform(get("/api/{customerId}/txns", 1).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isOk()).andExpect(jsonPath("$").isArray())
+				.andExpect(jsonPath("$[0].amount").value(300));
+	}
+
+	@Test
+	public void testGetAllTransactions_NotFound() throws Exception {
+		when(transactionService.getAllTransactions(999L)).thenReturn(new ArrayList<>());
+
+		mockMvc.perform(get("/api/{customerId}/txns", 999).contentType(MediaType.APPLICATION_JSON))
+				.andExpect(status().isNotFound())
+				.andExpect(content().string("No transactions found for customer ID: 999"));
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.retailer.customerRewardApp.Exception.ResourceNotFoundException;
 import com.retailer.customerRewardApp.dto.TransactionDto;
 import com.retailer.customerRewardApp.service.TransactionService;
 
@@ -24,6 +25,10 @@ public class TransactionController {
 	public ResponseEntity<String> saveTransaction(@PathVariable(name = "customerid") long customerid,
 			@RequestBody TransactionDto transactionDto) {
 
+		if (transactionDto == null || transactionDto.getAmount() <= 0 || transactionDto.getTransactionDate() == null) {
+			throw new RuntimeException("Invalid Transaction Details");
+		}
+
 		transactionService.saveTransaction(customerid, transactionDto);
 		return ResponseEntity.ok("Transaction Details are saved successfully");
 
@@ -31,7 +36,12 @@ public class TransactionController {
 
 	@GetMapping("/{customerId}/txns")
 	public ResponseEntity<List<TransactionDto>> getAllTransactions(@PathVariable(name = "customerId") long customerId) {
-		return new ResponseEntity<>(transactionService.getAllTransactions(customerId), HttpStatus.OK);
+		List<TransactionDto> transactions = transactionService.getAllTransactions(customerId);
+		if (transactions == null || transactions.isEmpty()) {
+			throw new ResourceNotFoundException("No transactions found for customer ID: " + customerId);
+		}
+
+		return new ResponseEntity<>(transactions, HttpStatus.OK);
 	}
 
 }
