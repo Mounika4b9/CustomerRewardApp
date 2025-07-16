@@ -20,9 +20,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.retailer.customerRewardApp.controller.TransactionController;
-import com.retailer.customerRewardApp.dto.TransactionDto;
-import com.retailer.customerRewardApp.service.TransactionService;
+import com.infy.rewards.controller.TransactionController;
+import com.infy.rewards.dto.TransactionDto;
+import com.infy.rewards.service.TransactionService;
 
 @WebMvcTest(TransactionController.class)
 public class TransactionControllerTest {

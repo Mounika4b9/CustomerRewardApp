@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.service;
+package com.infy.rewards.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,13 +9,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.retailer.customerRewardApp.Exception.CustomerNotFound;
-import com.retailer.customerRewardApp.Exception.InvalidInputException;
-import com.retailer.customerRewardApp.dto.TransactionDto;
-import com.retailer.customerRewardApp.entity.Customer;
-import com.retailer.customerRewardApp.entity.Transaction;
-import com.retailer.customerRewardApp.repository.CustomerRepository;
-import com.retailer.customerRewardApp.repository.TransactionRepository;
+import com.infy.rewards.Exception.CustomerNotFound;
+import com.infy.rewards.Exception.InvalidInputException;
+import com.infy.rewards.dto.TransactionDto;
+import com.infy.rewards.entity.Customer;
+import com.infy.rewards.entity.Transaction;
+import com.infy.rewards.repository.CustomerRepository;
+import com.infy.rewards.repository.TransactionRepository;
 
 @Service
 public class TransactionServiceImpl implements TransactionService {

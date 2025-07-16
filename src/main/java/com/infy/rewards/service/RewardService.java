@@ -1,8 +1,9 @@
-package com.retailer.customerRewardApp.service;
+package com.infy.rewards.service;
 
 import java.time.LocalDate;
 import java.util.Map;
-import com.retailer.customerRewardApp.dto.RewardResponse;
+
+import com.infy.rewards.dto.RewardResponse;
 
 public interface RewardService {
 

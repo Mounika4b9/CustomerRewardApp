@@ -1,19 +1,17 @@
 package service;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -22,22 +20,16 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
 import org.modelmapper.ModelMapper;
 
-import com.retailer.customerRewardApp.Exception.CustomerNotFound;
-import com.retailer.customerRewardApp.dto.RewardResponse;
-import com.retailer.customerRewardApp.dto.TransactionDto;
-import com.retailer.customerRewardApp.entity.Customer;
-import com.retailer.customerRewardApp.entity.Transaction;
-import com.retailer.customerRewardApp.repository.CustomerRepository;
-import com.retailer.customerRewardApp.repository.TransactionRepository;
-import com.retailer.customerRewardApp.service.RewardService;
-import com.retailer.customerRewardApp.service.RewardServiceImpl;
-import com.retailer.customerRewardApp.service.TransactionService;
-import com.retailer.customerRewardApp.service.TransactionServiceImpl;
+import com.infy.rewards.dto.RewardResponse;
+import com.infy.rewards.dto.TransactionDto;
+import com.infy.rewards.entity.Customer;
+import com.infy.rewards.entity.Transaction;
+import com.infy.rewards.repository.CustomerRepository;
+import com.infy.rewards.repository.TransactionRepository;
+import com.infy.rewards.service.RewardServiceImpl;
+import com.infy.rewards.service.TransactionServiceImpl;
 
 public class RewardServiceTest {
 

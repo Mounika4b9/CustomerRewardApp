@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.entity;
+package com.infy.rewards.entity;
 
 import java.time.LocalDate;
 

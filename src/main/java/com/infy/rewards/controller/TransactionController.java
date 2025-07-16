@@ -1,6 +1,7 @@
-package com.retailer.customerRewardApp.controller;
+package com.infy.rewards.controller;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,9 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.retailer.customerRewardApp.Exception.ResourceNotFoundException;
-import com.retailer.customerRewardApp.dto.TransactionDto;
-import com.retailer.customerRewardApp.service.TransactionService;
+import com.infy.rewards.Exception.ResourceNotFoundException;
+import com.infy.rewards.dto.TransactionDto;
+import com.infy.rewards.service.TransactionService;
 
 @RestController
 @RequestMapping("/api")

@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.Exception;
+package com.infy.rewards.Exception;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

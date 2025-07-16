@@ -18,9 +18,9 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import com.retailer.customerRewardApp.controller.RewardController;
-import com.retailer.customerRewardApp.dto.RewardResponse;
-import com.retailer.customerRewardApp.service.RewardService;
+import com.infy.rewards.controller.RewardController;
+import com.infy.rewards.dto.RewardResponse;
+import com.infy.rewards.service.RewardService;
 
 @WebMvcTest(RewardController.class)
 public class RewardControllerTest {

@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.controller;
+package com.infy.rewards.controller;
 
 import java.time.LocalDate;
 import java.util.Map;
@@ -14,9 +14,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.retailer.customerRewardApp.Exception.ResourceNotFoundException;
-import com.retailer.customerRewardApp.dto.RewardResponse;
-import com.retailer.customerRewardApp.service.RewardService;
+import com.infy.rewards.Exception.ResourceNotFoundException;
+import com.infy.rewards.dto.RewardResponse;
+import com.infy.rewards.service.RewardService;
 
 @RestController
 @RequestMapping("/rewards")

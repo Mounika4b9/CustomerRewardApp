@@ -13,9 +13,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.retailer.customerRewardApp.controller.CustomerController;
-import com.retailer.customerRewardApp.dto.CustomerDto;
-import com.retailer.customerRewardApp.service.CustomerService;
+import com.infy.rewards.controller.CustomerController;
+import com.infy.rewards.dto.CustomerDto;
+import com.infy.rewards.service.CustomerService;
 
 @WebMvcTest(CustomerController.class)
 public class CustomerControllerTest {

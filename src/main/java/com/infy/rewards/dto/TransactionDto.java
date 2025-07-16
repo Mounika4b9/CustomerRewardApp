@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.dto;
+package com.infy.rewards.dto;
 
 import java.time.LocalDate;
 

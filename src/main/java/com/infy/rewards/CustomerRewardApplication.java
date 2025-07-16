@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp;
+package com.infy.rewards;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

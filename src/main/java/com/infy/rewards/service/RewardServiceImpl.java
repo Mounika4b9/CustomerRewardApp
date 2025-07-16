@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.service;
+package com.infy.rewards.service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -13,13 +13,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.retailer.customerRewardApp.Exception.CustomerNotFound;
-import com.retailer.customerRewardApp.dto.RewardResponse;
-import com.retailer.customerRewardApp.dto.TransactionDto;
-import com.retailer.customerRewardApp.entity.Customer;
-import com.retailer.customerRewardApp.entity.Transaction;
-import com.retailer.customerRewardApp.repository.CustomerRepository;
-import com.retailer.customerRewardApp.repository.TransactionRepository;
+import com.infy.rewards.Exception.CustomerNotFound;
+import com.infy.rewards.dto.RewardResponse;
+import com.infy.rewards.dto.TransactionDto;
+import com.infy.rewards.entity.Customer;
+import com.infy.rewards.entity.Transaction;
+import com.infy.rewards.repository.CustomerRepository;
+import com.infy.rewards.repository.TransactionRepository;
 
 @Service
 public class RewardServiceImpl implements RewardService {
@@ -28,9 +28,7 @@ public class RewardServiceImpl implements RewardService {
 	private TransactionRepository transactionRepository;
 	@Autowired
 	private CustomerRepository customerRepository;
-	@Autowired
-	private TransactionService service;
-
+	
 	@Autowired
 	private ModelMapper modelMapper;
 	private static final Logger logger = LoggerFactory.getLogger(RewardServiceImpl.class);
@@ -54,6 +52,7 @@ public class RewardServiceImpl implements RewardService {
 			String month = transaction.getTransactionDate().getMonth().toString();
 			monthlyData.putIfAbsent(month, new HashMap<>());
 			Map<String, Object> monthData = monthlyData.get(month);
+			@SuppressWarnings("unchecked")
 			List<TransactionDto> monthTransactions = (List<TransactionDto>) monthData.getOrDefault("transactions",
 					new ArrayList<>());
 			monthTransactions.add(transaction);

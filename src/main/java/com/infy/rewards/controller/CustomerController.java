@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.controller;
+package com.infy.rewards.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.retailer.customerRewardApp.dto.CustomerDto;
-import com.retailer.customerRewardApp.service.CustomerService;
+
+import com.infy.rewards.dto.CustomerDto;
+import com.infy.rewards.service.CustomerService;
 
 @RestController
 @RequestMapping("api/customer")

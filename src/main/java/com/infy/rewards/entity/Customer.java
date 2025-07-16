@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.entity;
+package com.infy.rewards.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

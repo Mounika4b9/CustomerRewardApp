@@ -1,4 +1,4 @@
-package com.retailer.customerRewardApp.Exception;
+package com.infy.rewards.Exception;
 
 public class ResourceNotFoundException extends RuntimeException {
 	private String message;

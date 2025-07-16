@@ -1,8 +1,8 @@
-package com.retailer.customerRewardApp.service;
+package com.infy.rewards.service;
 
 import java.util.List;
 
-import com.retailer.customerRewardApp.dto.TransactionDto;
+import com.infy.rewards.dto.TransactionDto;
 
 public interface TransactionService {
 

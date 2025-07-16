@@ -1,12 +1,12 @@
-package com.retailer.customerRewardApp.service;
+package com.infy.rewards.service;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.retailer.customerRewardApp.dto.CustomerDto;
-import com.retailer.customerRewardApp.entity.Customer;
-import com.retailer.customerRewardApp.repository.CustomerRepository;
+import com.infy.rewards.dto.CustomerDto;
+import com.infy.rewards.entity.Customer;
+import com.infy.rewards.repository.CustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {

@@ -1,8 +1,9 @@
-package com.retailer.customerRewardApp.dto;
+package com.infy.rewards.dto;
 
 import java.util.List;
 
-import com.retailer.customerRewardApp.entity.Customer;
+import com.infy.rewards.entity.Customer;
+
 import lombok.Getter;
 import lombok.Setter;
 
